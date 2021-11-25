@@ -5,15 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import br.com.eduardomaxwell.astranovos.databinding.HomeFragmentBinding
 import br.com.eduardomaxwell.astranovos.presentation.adapter.PostListAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // Tarefas do PresentationModule
-// TODO 003: Criar um pacote di na camada de presentation
-// TODO 004: Criar um object PresentationModule dentro do pacote di
-// TODO 005: Criar uma função privada viewModelModule()
-// TODO 006: Criar uma função load()
 
 // Tarefas da classe App
 // TODO 007: Criar uma classe App
@@ -26,7 +22,7 @@ class HomeFragment : Fragment() {
 
 //    TODO 010: Usar o delegate Koin para injetar o HomeViewModel
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModel()
     private val binding: HomeFragmentBinding by lazy {
         HomeFragmentBinding.inflate(layoutInflater)
     }
@@ -37,7 +33,6 @@ class HomeFragment : Fragment() {
     ): View? {
 
 //        TODO 009: Eliminar essa inicialização manual do ViewModel
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         initBinding()
         initRecyclerView()
