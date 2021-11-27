@@ -14,14 +14,7 @@ import kotlinx.coroutines.launch
 /**
  * Essa classe dá suporte à tela principal (Home).
  */
-class HomeViewModel : ViewModel() {
-
-    /**
-     * Instancia um PostRepository. Somente para teste, será
-     * substituído por uma solução de injeção de dependência
-     * usando Koin.
-     */
-    val repository : PostRepository = PostRepositoryImpl(MockAPIService)
+class HomeViewModel(private val repository: PostRepository) : ViewModel() {
 
     private val _listPost = MutableLiveData<List<Post>>()
     val listPost: LiveData<List<Post>>

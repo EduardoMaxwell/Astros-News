@@ -27,10 +27,6 @@ class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
     }
 }
 
-/**
- * Um serviço com dados mockados só para apoio durante o desenvolvimento.
- */
-
 object MockAPIService {
 
 

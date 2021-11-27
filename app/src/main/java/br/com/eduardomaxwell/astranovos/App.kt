@@ -1,6 +1,7 @@
 package br.com.eduardomaxwell.astranovos
 
 import android.app.Application
+import br.com.eduardomaxwell.astranovos.data.di.DataModule
 import br.com.eduardomaxwell.astranovos.presentation.di.PresentationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -23,5 +24,10 @@ class App : Application() {
         * carrega todos os modulo criados no object PresentationModule
         * */
         PresentationModule.load()
+
+        /*
+        * carrega todos os modulo criados no object DataModule
+        * */
+        DataModule.load()
     }
 }

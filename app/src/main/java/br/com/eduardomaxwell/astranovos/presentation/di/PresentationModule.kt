@@ -25,7 +25,7 @@ object PresentationModule {
         de instancia-los pra nós
         */
         return module {
-            factory { HomeViewModel() }
+            factory { HomeViewModel(get()) }
         }
     }
 }
