@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.eduardomaxwell.astranovos.data.model.Post
-import br.com.eduardomaxwell.astranovos.data.repository.MockAPIService
 import br.com.eduardomaxwell.astranovos.data.repository.PostRepository
-import br.com.eduardomaxwell.astranovos.data.repository.PostRepositoryImpl
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

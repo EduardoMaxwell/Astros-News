@@ -1,32 +1,24 @@
 package br.com.eduardomaxwell.astranovos.data.repository
 
-import br.com.eduardomaxwell.astranovos.data.model.Launch
 import br.com.eduardomaxwell.astranovos.data.model.Post
+import br.com.eduardomaxwell.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+class PostRepositoryImpl(
+    private val service: SpaceFlightNewsService
+) : PostRepository {
 
-/**
- * Essa classe implementa a interface PostRepository, inicialmente
- * usando um serviço mockado. Os dados são retornados na forma de um flow.
- */
 
-class PostRepositoryImpl(private val service: MockAPIService) : PostRepository {
-
-    /**
-     * Essa função usa o construtor flow { } para emitir a lista de Posts
-     * na forma de um fluxo de dados. Aqui a função acessa um serviço
-     * mockado. No uso real é preciso usar um bloco try-catch para
-     * lidar com exceções no acesso à API.
-     */
     override suspend fun listPosts(): Flow<List<Post>> = flow {
 
-        val postList = service.listPosts
+        val postList = service.listPosts()
         emit(postList)
 
     }
 }
 
+/*
 object MockAPIService {
 
 
@@ -94,4 +86,4 @@ object MockAPIService {
         )
     )
 
-}
+}*/
