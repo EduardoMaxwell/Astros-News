@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import br.com.eduardomaxwell.astranovos.core.State
+import br.com.eduardomaxwell.astranovos.data.model.Post
 import br.com.eduardomaxwell.astranovos.databinding.HomeFragmentBinding
 import br.com.eduardomaxwell.astranovos.presentation.adapter.PostListAdapter
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 // Tarefas do PresentationModule
@@ -35,8 +38,18 @@ class HomeFragment : Fragment() {
 //        TODO 009: Eliminar essa inicialização manual do ViewModel
 
         initBinding()
+        initSnackbar()
         initRecyclerView()
         return binding.root
+    }
+
+    private fun initSnackbar() {
+        viewModel.snackbar.observe(viewLifecycleOwner){
+            it?.let { errorMsg ->
+                Snackbar.make(binding.root, errorMsg, Snackbar.LENGTH_LONG).show()
+                viewModel.onSnackBarShown()
+            }
+        }
     }
 
     private fun initRecyclerView() {
@@ -44,8 +57,15 @@ class HomeFragment : Fragment() {
         val adapter = PostListAdapter()
         binding.homeRv.adapter = adapter
 
-        viewModel.listPost.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+        viewModel.listPost.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                State.Loading -> viewModel.showProgressBar()
+                is State.Error -> viewModel.hideProgressBar()
+                is State.Success -> {
+                    viewModel.hideProgressBar()
+                    adapter.submitList(state.result)
+                }
+            }
         }
 
 

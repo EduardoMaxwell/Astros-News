@@ -1,9 +1,11 @@
 package br.com.eduardomaxwell.astranovos.data.repository
 
+import android.os.RemoteException
 import br.com.eduardomaxwell.astranovos.data.model.Post
 import br.com.eduardomaxwell.astranovos.data.services.SpaceFlightNewsService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.Exception
 
 class PostRepositoryImpl(
     private val service: SpaceFlightNewsService
@@ -11,9 +13,12 @@ class PostRepositoryImpl(
 
 
     override suspend fun listPosts(): Flow<List<Post>> = flow {
-
-        val postList = service.listPosts()
-        emit(postList)
+        try {
+            val postList = service.listPosts()
+            emit(postList)
+        } catch (ex: Exception) {
+            throw RemoteException("Imposível acessar a API")
+        }
 
     }
 }
